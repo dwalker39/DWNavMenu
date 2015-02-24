@@ -3,7 +3,7 @@ A highly customizable UIActionSheet style menu with simple navigation and block 
 
 ![](NavMenuDemo.gif)
 
-This class is a simple navigation menu in the style of a UIActionSheet. This class makes it easy to create seamless menu funnels using block handling and simple navigation. Includes all the features of a UIActionSheet, and all navigation handling is done internally. Also supports landscape and portait orientation changes. All button sizes, fonts, colors, spacing, and et cetera is all customizeable and can be found in the DWNavMenu header file.
+This class is a simple navigation menu in the style of a UIActionSheet. This class makes it easy to create seamless menu funnels using block handling and simple navigation. Includes all the features of a UIActionSheet, and all navigation handling is done internally. Also supports landscape and portrait orientation changes. All button sizes, fonts, colors, spacing, and et cetera is all customizable and can be found in the DWNavMenu header file.
 
 Note you only need to import the DWNavMenu header file, but you'll need all the source files included in your project.
 
