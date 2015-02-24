@@ -20,29 +20,29 @@ You create a menu by calling the class or instance method initializer. You can a
 Here is an example of creating a DWNavMenu instance:
 ```objective-c
         DWNavMenu *someMenu = [DWNavMenu navMenuWithTitle:@"Sample Menu"
-                                    cancelButtonTitle:nil
-                                         cancelAction:nil
-                                              buttons:
-                           [DWNavMenuAction menuActionWithTitle:@"This is a button"
-                                              shouldDismissMenu:YES
-                                                   blockHandler:^{
-                                                       NSLog(@"This button was tapped");
-                                                   }], nil];
+                                        cancelButtonTitle:nil
+                                             cancelAction:nil
+                                                  buttons:
+                               [DWNavMenuAction menuActionWithTitle:@"This is a button"
+                                                  shouldDismissMenu:YES
+                                                       blockHandler:^{
+                                                           NSLog(@"This button was tapped");
+                                                       }], nil];
 ```
 
 If you wanted to push the last NavMenu onto another NavMenu's navigation stack, you would do it like so:
 ```objective-c
         self.mainMenu = [DWNavMenu navMenuWithTitle:@"Main Menu"
-                              cancelButtonTitle:@"Cancel"
-                                   cancelAction:nil
-                                        buttons:
-                     [DWNavMenuAction menuActionWithTitle:@"Show sample sub-menu?"
-                                        shouldDismissMenu:NO
-                                             blockHandler:^{
-                                                 NSLog(@"Tapped show sample sub-menu");
-                                                 [self.mainMenu pushNavMenu:someMenu animated:YES];
-                                             }], nil
-                     ];
+                                  cancelButtonTitle:@"Cancel"
+                                       cancelAction:nil
+                                            buttons:
+                         [DWNavMenuAction menuActionWithTitle:@"Show sample sub-menu?"
+                                            shouldDismissMenu:NO
+                                                 blockHandler:^{
+                                                     NSLog(@"Tapped show sample sub-menu");
+                                                     [self.mainMenu pushNavMenu:someMenu animated:YES];
+                                                 }], nil
+                         ];
 ```
 
 You can also add a destructive style button, for instance if you wanted to show a delete or remove button with visual warning separate from other buttons.
