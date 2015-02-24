@@ -10,7 +10,7 @@ Note you only need to import the DWNavMenu header file, but you'll need all the 
 CocoaPods
 ==================
 ```
-Coming soon
+pod 'DWNavMenu'
 ```
 
 Usage
