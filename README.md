@@ -3,7 +3,7 @@ A highly customizable UIActionSheet style menu with simple navigation and block 
 
 ![](NavMenuDemo.gif)
 
-This class is a simple navigation menu in the style of a UIActionSheet. You can easily create new DWNavMenu instances with block handling for each button and other customizations. You can also easily push a new DWNavMenu to create a seamless menu presentation and experience. All button sizes, fonts, colors, spacing, and et cetera is all customizeable and can be found in the DWNavMenu header file.
+This class is a simple navigation menu in the style of a UIActionSheet. This class makes it easy to create seamless menu funnels using block handling and simple navigation. Includes all the features of a UIActionSheet, and all navigation handling is done internally. Also supports landscape and portait orientation changes. All button sizes, fonts, colors, spacing, and et cetera is all customizeable and can be found in the DWNavMenu header file.
 
 Note you only need to import the DWNavMenu header file, but you'll need all the source files included in your project.
 
@@ -15,7 +15,7 @@ Coming soon
 
 Usage
 ==================
-You create a menu by calling the class or instance method initializer. You can add buttons with the DWNavMenuAction class. This class has only one initializer where you can include the button title, if it will dismiss the menu or not, the block to invoke when it's tapped.
+You create a menu by calling the class or instance method initializer. You can add buttons with the DWNavMenuAction class. This class has only one initializer where you can include the button title, if it will dismiss the menu or not, and the block to invoke when it's tapped.
 
 Here is an example of creating a DWNavMenu instance:
 ```objective-c
