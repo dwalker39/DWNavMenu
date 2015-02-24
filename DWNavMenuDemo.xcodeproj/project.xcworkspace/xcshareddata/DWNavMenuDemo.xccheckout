@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>2F0E153A-480D-4F00-A44A-7C23951CD841</string>
+	<key>IDESourceControlProjectName</key>
+	<string>DWNavMenuDemo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>EF4648F467A62768B3EDC37485EA45A07354E07F</key>
+		<string>https://github.com/dwalker39/DWNavMenu.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>DWNavMenuDemo.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>EF4648F467A62768B3EDC37485EA45A07354E07F</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/dwalker39/DWNavMenu.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>EF4648F467A62768B3EDC37485EA45A07354E07F</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>EF4648F467A62768B3EDC37485EA45A07354E07F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>DWNavMenuDemo</string>
+		</dict>
+	</array>
+</dict>
+</plist>
