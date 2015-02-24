@@ -9,7 +9,6 @@ Pod::Spec.new do |s|
                    DESC
 
   s.homepage     = "https://github.com/dwalker39/DWNavMenu"
-  s.screenshots  = "https://github.com/dwalker39/DWNavMenu/blob/master/NavMenuDemo.gif"
   s.license      = "Apache License"
   s.author             = { "Derrick Walker" => "derrick@mtsr-app.com" }
   s.platform     = :ios, "7.0"
