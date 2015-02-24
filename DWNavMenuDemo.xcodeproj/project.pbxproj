@@ -14,6 +14,9 @@
 		5E399E561A9C17D200B137D1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E399E551A9C17D200B137D1 /* Images.xcassets */; };
 		5E399E591A9C17D200B137D1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E399E571A9C17D200B137D1 /* LaunchScreen.xib */; };
 		5E399E651A9C17D200B137D1 /* DWNavMenuDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E399E641A9C17D200B137D1 /* DWNavMenuDemoTests.m */; };
+		5E399E751A9C180700B137D1 /* DWNavMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E399E701A9C180700B137D1 /* DWNavMenu.m */; };
+		5E399E761A9C180700B137D1 /* DWNavMenuAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E399E721A9C180700B137D1 /* DWNavMenuAction.m */; };
+		5E399E771A9C180700B137D1 /* DWTouchHighlightButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E399E741A9C180700B137D1 /* DWTouchHighlightButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +43,12 @@
 		5E399E5E1A9C17D200B137D1 /* DWNavMenuDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DWNavMenuDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E399E631A9C17D200B137D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E399E641A9C17D200B137D1 /* DWNavMenuDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DWNavMenuDemoTests.m; sourceTree = "<group>"; };
+		5E399E6F1A9C180700B137D1 /* DWNavMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWNavMenu.h; sourceTree = "<group>"; };
+		5E399E701A9C180700B137D1 /* DWNavMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWNavMenu.m; sourceTree = "<group>"; };
+		5E399E711A9C180700B137D1 /* DWNavMenuAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWNavMenuAction.h; sourceTree = "<group>"; };
+		5E399E721A9C180700B137D1 /* DWNavMenuAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWNavMenuAction.m; sourceTree = "<group>"; };
+		5E399E731A9C180700B137D1 /* DWTouchHighlightButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTouchHighlightButton.h; sourceTree = "<group>"; };
+		5E399E741A9C180700B137D1 /* DWTouchHighlightButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTouchHighlightButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +90,7 @@
 		5E399E471A9C17D100B137D1 /* DWNavMenuDemo */ = {
 			isa = PBXGroup;
 			children = (
+				5E399E6E1A9C180700B137D1 /* DWNavMenu */,
 				5E399E4C1A9C17D100B137D1 /* AppDelegate.h */,
 				5E399E4D1A9C17D100B137D1 /* AppDelegate.m */,
 				5E399E4F1A9C17D100B137D1 /* ViewController.h */,
@@ -118,6 +128,19 @@
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
+		};
+		5E399E6E1A9C180700B137D1 /* DWNavMenu */ = {
+			isa = PBXGroup;
+			children = (
+				5E399E6F1A9C180700B137D1 /* DWNavMenu.h */,
+				5E399E701A9C180700B137D1 /* DWNavMenu.m */,
+				5E399E711A9C180700B137D1 /* DWNavMenuAction.h */,
+				5E399E721A9C180700B137D1 /* DWNavMenuAction.m */,
+				5E399E731A9C180700B137D1 /* DWTouchHighlightButton.h */,
+				5E399E741A9C180700B137D1 /* DWTouchHighlightButton.m */,
+			);
+			path = DWNavMenu;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -222,6 +245,9 @@
 				5E399E511A9C17D100B137D1 /* ViewController.m in Sources */,
 				5E399E4E1A9C17D100B137D1 /* AppDelegate.m in Sources */,
 				5E399E4B1A9C17D100B137D1 /* main.m in Sources */,
+				5E399E771A9C180700B137D1 /* DWTouchHighlightButton.m in Sources */,
+				5E399E751A9C180700B137D1 /* DWNavMenu.m in Sources */,
+				5E399E761A9C180700B137D1 /* DWNavMenuAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
