@@ -38,7 +38,7 @@ Here is an example of adding a button to the DWNavMenu. Buttons are created by p
                                                        }], nil];
 ```
 
-If you wanted to push the last NavMenu onto another NavMenu's navigation stack, you would do it like so:
+If you wanted to push the last DWNavMenu onto another DWNavMenu's navigation stack, you would do it like so:
 ```objective-c
         self.mainMenu = /* An already created DWNavMenu */
         
