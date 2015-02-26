@@ -17,10 +17,18 @@ Usage
 ==================
 You create a menu by calling the class or instance method initializer. You can add buttons with the DWNavMenuAction class. This class has only one initializer where you can include the button title, if it will dismiss the menu or not, and the block to invoke when it's tapped.
 
-Here is an example of creating a DWNavMenu instance:
+Here is an example of creating a DWNavMenu instance with only a cancel button. Tapping cancel will always dismiss the menu by default, however you can optionally set a block for cancelAction to perform an additional action.
 ```objective-c
         DWNavMenu *someMenu = [DWNavMenu navMenuWithTitle:@"Sample Menu"
-                                        cancelButtonTitle:nil
+                                        cancelButtonTitle:@"Cancel"
+                                             cancelAction:nil
+                                                  buttons:nil];
+```
+
+Here is an example of adding a button to the DWNavMenu. Buttons are created by passing DWNavMenuActions to the buttons parameter
+```objective-c
+        DWNavMenu *someMenu = [DWNavMenu navMenuWithTitle:@"Sample Menu"
+                                        cancelButtonTitle:@"Cancel"
                                              cancelAction:nil
                                                   buttons:
                                [DWNavMenuAction menuActionWithTitle:@"This is a button"
@@ -32,17 +40,14 @@ Here is an example of creating a DWNavMenu instance:
 
 If you wanted to push the last NavMenu onto another NavMenu's navigation stack, you would do it like so:
 ```objective-c
-        self.mainMenu = [DWNavMenu navMenuWithTitle:@"Main Menu"
-                                  cancelButtonTitle:@"Cancel"
-                                       cancelAction:nil
-                                            buttons:
-                         [DWNavMenuAction menuActionWithTitle:@"Show sample sub-menu?"
-                                            shouldDismissMenu:NO
-                                                 blockHandler:^{
-                                                     NSLog(@"Tapped show sample sub-menu");
-                                                     [self.mainMenu pushNavMenu:someMenu animated:YES];
-                                                 }], nil
-                         ];
+        self.mainMenu = /* An already created DWNavMenu */
+        
+        [self.mainMenu pushNavMenu:someMenu animated:YES];
+```
+
+All pushed DWNavMenus will automatically add a back button that will pop the menu off the navigation stack for you. However if you wanted to perform this manually simply call popNavMenu:
+```objective-c
+        [someMenu popNavMenuAnimated:YES];
 ```
 
 You can also add a destructive style button, for instance if you wanted to show a delete or remove button with visual warning separate from other buttons.
