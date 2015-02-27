@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "DWNavMenu"
-  s.version      = “1.0.1"
+  s.version      = "1.0.1"
   s.summary      = "A highly customizable UIActionSheet style menu with simple navigation and block handling"
 
   s.description  = <<-DESC
