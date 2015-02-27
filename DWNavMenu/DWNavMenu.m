@@ -8,6 +8,8 @@
 
 #import "DWNavMenu.h"
 
+#define kDefaultAnimationDuration 0.3f
+
 @interface MenuNavigationHandler : NSObject
 
 @property (nonatomic, strong, readonly) NSMutableArray *menuNavigationStack;
@@ -107,7 +109,7 @@
     navMenu.navigationHandler = self.navigationHandler;
     navMenu.needsButtonUpdate = YES;
     
-    [navMenu _adoptStyleFromParentIfNeeded];
+    [navMenu _adoptSettingsFromParentIfNeeded];
     [navMenu prepareMenuButtons];
     [navMenu _addBackButton];
     
@@ -272,7 +274,7 @@
         needsResetTapEnabled = YES;
     }
     
-    [UIView animateWithDuration:animated ? 0.3f : 0.f
+    [UIView animateWithDuration:animated ? self.animationDuration : 0.f
                           delay:0.01f
          usingSpringWithDamping:0.8f
           initialSpringVelocity:0.25f
@@ -422,7 +424,7 @@
     self.needsButtonUpdate = NO;
 }
 
-- (void)_adoptStyleFromParentIfNeeded {
+- (void)_adoptSettingsFromParentIfNeeded {
     if (self.navigationHandler) {
         DWNavMenu *parentMenu = [self.navigationHandler parentMenu];
         
@@ -438,6 +440,7 @@
         self.backgroundTapToDismissEnabled = parentMenu.backgroundTapToDismissEnabled;
         self.edgeSpacing = parentMenu.edgeSpacing;
         self.backgroundOverlayColor = parentMenu.backgroundOverlayColor;
+        self.animationDuration = parentMenu.animationDuration;
     }
 }
 
@@ -469,11 +472,24 @@
     return navMenuInstance;
 }
 
++ (instancetype)navMenuWithTitle:(NSString *)titleText
+               cancelButtonTitle:(NSString *)cancelText
+                    cancelAction:(MenuAction)cancelAction
+                   buttonActions:(NSArray *)navMenuActions {
+    DWNavMenu *navMenuInstance = [[DWNavMenu alloc] initWithMenuActions:navMenuActions];
+    navMenuInstance.titleText = titleText;
+    navMenuInstance.cancelMenuAction = [DWNavMenuAction menuActionWithTitle:cancelText == nil ? @"Cancel" : cancelText
+                                                          shouldDismissMenu:YES
+                                                               blockHandler:cancelAction];
+    
+    return navMenuInstance;
+}
+
 - (instancetype)initWithMenuActions:(NSArray *)menuActions {
     self = [super init];
     
     if (self) {
-        [self commonInit];
+        [self _privateInit];
         _menuButtonActions = menuActions;
     }
     
@@ -482,7 +498,7 @@
 
 #pragma mark - Lifecycle Methods
 
-- (void)commonInit {
+- (void)_privateInit {
     // Init view
     self.backgroundColor = [UIColor clearColor];
     self.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight |
@@ -518,6 +534,7 @@
     self.backgroundTapToDismissEnabled = YES;
     self.edgeSpacing = 8.f;
     self.backgroundOverlayColor = [UIColor colorWithWhite:0.f alpha:0.45f];
+    self.animationDuration = kDefaultAnimationDuration;
     self.needsButtonUpdate = YES;
 }
 

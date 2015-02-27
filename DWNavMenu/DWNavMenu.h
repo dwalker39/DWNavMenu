@@ -30,6 +30,7 @@
 @property (nonatomic, assign) BOOL backgroundTapToDismissEnabled;
 @property (nonatomic, assign) float edgeSpacing;
 @property (nonatomic, copy) UIColor *backgroundOverlayColor;
+@property (nonatomic, assign) float animationDuration;
 
 @property (nonatomic, strong, readonly) NSArray *menuButtonActions;
 @property (nonatomic, readonly) UIView *buttonContainerView;
@@ -62,6 +63,11 @@
                cancelButtonTitle:(NSString *)cancelText
                     cancelAction:(MenuAction)cancelAction
                          buttons:(DWNavMenuAction *)button, ...;
+
++ (instancetype)navMenuWithTitle:(NSString *)titleText
+               cancelButtonTitle:(NSString *)cancelText
+                    cancelAction:(MenuAction)cancelAction
+                   buttonActions:(NSArray *)navMenuActions;
 
 - (instancetype)initWithMenuActions:(NSArray *)menuActions;
 
