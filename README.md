@@ -52,9 +52,9 @@ All pushed DWNavMenus will automatically add a back button that will pop the men
 
 You can also add a destructive style button, for instance if you wanted to show a delete or remove button with visual warning separate from other buttons.
 ```objective-c
-   self.mainMenu.destructiveMenuAction = [DWNavMenuAction menuActionWithTitle:@"Delete"
-                                                     shouldDismissMenu:YES
-                                                          blockHandler:^{
-                                                              NSLog(@"Delete button was tapped");
-                                                          }];
+self.mainMenu.destructiveMenuAction = [DWNavMenuAction menuActionWithTitle:@"Delete"
+                                                         shouldDismissMenu:YES
+                                                              blockHandler:^{
+                                                                  NSLog(@"Delete button was tapped");
+                                                              }];
 ```
