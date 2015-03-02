@@ -17,16 +17,16 @@ typedef void(^ TapHandlerBlock)(DWTouchHighlightButton *);
 // Block handler
 @property (nonatomic, copy) void(^ tapHandler)(DWTouchHighlightButton *sender);
 
-// Indicates whether the home button will animate it's touch highlighting, this is enabled by default
+// Whether the button will animate it's touch highlighting, this is enabled by default
 @property (nonatomic) BOOL animatedHighlighting;
 
-// The duration of the expand/collapse animation
+// The duration of the highlight animation
 @property (nonatomic) float animationDuration;
 
-// The default alpha of the homeButtonView when not tapped
+// The default alpha of the butten when not highlighted
 @property (nonatomic) float standbyAlpha;
 
-// The highlighted alpha of the homeButtonView when tapped
+// The highlighted alpha of the button when highlighted
 @property (nonatomic) float highlightAlpha;
 
 @end
