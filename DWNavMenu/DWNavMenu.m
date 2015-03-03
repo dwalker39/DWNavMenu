@@ -109,7 +109,7 @@
     navMenu.navigationHandler = self.navigationHandler;
     navMenu.needsButtonUpdate = YES;
     
-    [navMenu _adoptSettingsFromParentIfNeeded];
+    [navMenu _adoptStyleFromParentIfNeeded];
     [navMenu prepareMenuButtons];
     [navMenu _addBackButton];
     
@@ -259,6 +259,10 @@
 }
 
 - (float)_titleLabelHeight {
+    if (self.titleText == nil) {
+        return 0.f;
+    }
+    
     CGRect frame = [self.titleText boundingRectWithSize:CGSizeMake(self.frame.size.width - (self.edgeSpacing * 2.f) - 10.f, INFINITY)
                                                 options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
                                              attributes:@{NSFontAttributeName : self.titleTextFont}
@@ -400,31 +404,33 @@
         [_buttonContainerView addSubview:menuButton];
     }
     
-    self.titleLabel = [[DWInternalLabel alloc] init];
-    self.titleLabel.text = self.titleText;
-    self.titleLabel.numberOfLines = 0;
-    self.titleLabel.backgroundColor = self.buttonBackgroundColor;
-    self.titleLabel.font = self.titleTextFont;
-    self.titleLabel.textColor = self.titleTextColor;
-    self.titleLabel.textAlignment = NSTextAlignmentCenter;
-    self.titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.titleLabel.tag = index;
-    
-    float labelHeight = [self _titleLabelHeight];
-    
-    self.titleLabel.frame = CGRectMake(0.f,
-                                  _buttonContainerView.frame.size.height - _buttonHeight - _buttonGapSpace - _cancelButtonGapSpace - (--index * (_buttonHeight + _buttonGapSpace)) - labelHeight - _buttonGapSpace * 2.f,
-                                  _buttonContainerView.frame.size.width,
-                                  labelHeight);
-    
-    [_buttonContainerView addSubview:self.titleLabel];
+    if (self.titleText) {
+        self.titleLabel = [[DWInternalLabel alloc] init];
+        self.titleLabel.text = self.titleText;
+        self.titleLabel.numberOfLines = 0;
+        self.titleLabel.backgroundColor = self.buttonBackgroundColor;
+        self.titleLabel.font = self.titleTextFont;
+        self.titleLabel.textColor = self.titleTextColor;
+        self.titleLabel.textAlignment = NSTextAlignmentCenter;
+        self.titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        self.titleLabel.tag = index;
+        
+        float labelHeight = [self _titleLabelHeight];
+        
+        self.titleLabel.frame = CGRectMake(0.f,
+                                           _buttonContainerView.frame.size.height - _buttonHeight - _buttonGapSpace - _cancelButtonGapSpace - (--index * (_buttonHeight + _buttonGapSpace)) - labelHeight - _buttonGapSpace * 2.f,
+                                           _buttonContainerView.frame.size.width,
+                                           labelHeight);
+        
+        [_buttonContainerView addSubview:self.titleLabel];
+    }
     
     [self addSubview:_buttonContainerView];
 
     self.needsButtonUpdate = NO;
 }
 
-- (void)_adoptSettingsFromParentIfNeeded {
+- (void)_adoptStyleFromParentIfNeeded {
     if (self.navigationHandler) {
         DWNavMenu *parentMenu = [self.navigationHandler parentMenu];
         
@@ -440,7 +446,6 @@
         self.backgroundTapToDismissEnabled = parentMenu.backgroundTapToDismissEnabled;
         self.edgeSpacing = parentMenu.edgeSpacing;
         self.backgroundOverlayColor = parentMenu.backgroundOverlayColor;
-        self.animationDuration = parentMenu.animationDuration;
     }
 }
 
@@ -472,24 +477,11 @@
     return navMenuInstance;
 }
 
-+ (instancetype)navMenuWithTitle:(NSString *)titleText
-               cancelButtonTitle:(NSString *)cancelText
-                    cancelAction:(MenuAction)cancelAction
-                   buttonActions:(NSArray *)navMenuActions {
-    DWNavMenu *navMenuInstance = [[DWNavMenu alloc] initWithMenuActions:navMenuActions];
-    navMenuInstance.titleText = titleText;
-    navMenuInstance.cancelMenuAction = [DWNavMenuAction menuActionWithTitle:cancelText == nil ? @"Cancel" : cancelText
-                                                          shouldDismissMenu:YES
-                                                               blockHandler:cancelAction];
-    
-    return navMenuInstance;
-}
-
 - (instancetype)initWithMenuActions:(NSArray *)menuActions {
     self = [super init];
     
     if (self) {
-        [self _privateInit];
+        [self commonInit];
         _menuButtonActions = menuActions;
     }
     
@@ -498,7 +490,7 @@
 
 #pragma mark - Lifecycle Methods
 
-- (void)_privateInit {
+- (void)commonInit {
     // Init view
     self.backgroundColor = [UIColor clearColor];
     self.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight |
