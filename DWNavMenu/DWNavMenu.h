@@ -22,6 +22,9 @@
 // The text font of the menu title
 @property (nonatomic, copy) UIFont *titleTextFont;
 
+// The top corner radius of the menu title
+@property (nonatomic, assign) float topCornerRadius;
+
 // The background color of the menu buttons
 @property (nonatomic, copy) NSString *backButtonText;
 
@@ -45,6 +48,9 @@
 
 // The text color of the menu buttons
 @property (nonatomic, copy) UIColor *buttonTextColor;
+
+// The highlighted text color of the menu buttons
+@property (nonatomic, copy) UIColor *buttonHighlightedTextColor;
 
 // The background color of the destructive button (if present)
 @property (nonatomic, copy) UIColor *destructiveButtonColor;
@@ -91,6 +97,9 @@
 
 // Manually add a new menu button
 - (void)addMenuAction:(DWNavMenuAction *)menuAction;
+
+// Manuall add new menu button at specific index
+- (void)addMenuAction:(DWNavMenuAction *)menuAction atIndex:(NSUInteger)index;
 
 // -------------------------
 // Initializers

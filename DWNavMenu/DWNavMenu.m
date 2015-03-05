@@ -85,7 +85,7 @@
 - (void)showInView:(UIView *)view animated:(BOOL)animated {
     self.frame = CGRectMake(0.f, 0.f, view.frame.size.width, view.frame.size.height);
     
-    [self prepareMenuButtons];
+    [self _prepareMenuButtons];
     
     [view addSubview:self];
     
@@ -110,7 +110,7 @@
     navMenu.needsButtonUpdate = YES;
     
     [navMenu _adoptStyleFromParentIfNeeded];
-    [navMenu prepareMenuButtons];
+    [navMenu _prepareMenuButtons];
     [navMenu _addBackButton];
     
     [self.navigationHandler appendMenu:navMenu];
@@ -161,28 +161,17 @@
     }
 }
 
-- (void)prepareMenuButtons {
-    [self _updateMenuActionsArray];
-    
-    _buttonContainerView.frame = CGRectMake(self.edgeSpacing,
-                                            self.frame.size.height,
-                                            self.frame.size.width - (self.edgeSpacing * 2.f),
-                                            self.allMenuActions.count * (_buttonHeight + _buttonGapSpace) + _cancelButtonGapSpace + ([self _titleLabelHeight] + _buttonGapSpace));
-    
-    _buttonContainerView.backgroundColor = [UIColor clearColor];
-    
-    _tapGestureView.frame = CGRectMake(0.f, 0.f, self.frame.size.width, self.frame.size.height - _buttonContainerView.frame.size.height);
-    
-    [self _addButtons];
-}
-
-- (void)addMenuAction:(DWNavMenuAction *)menuAction {
+- (void)addMenuAction:(DWNavMenuAction *)menuAction atIndex:(NSUInteger)index {
     NSMutableArray *buttonActionsMutable = self.menuButtonActions.mutableCopy;
-    [buttonActionsMutable insertObject:menuAction atIndex:0];
+    [buttonActionsMutable insertObject:menuAction atIndex:index];
     _menuButtonActions = buttonActionsMutable.copy;
     
     self.needsButtonUpdate = YES;
     [self _updateMenuActionsArray];
+}
+
+- (void)addMenuAction:(DWNavMenuAction *)menuAction {
+    [self addMenuAction:menuAction atIndex:0];
 }
 
 #pragma mark - Private Methods
@@ -219,6 +208,21 @@
     } else {
         [self _toggleMenuShown:NO animated:animated withCompletion:completion];
     }
+}
+
+- (void)_prepareMenuButtons {
+    [self _updateMenuActionsArray];
+    
+    _buttonContainerView.frame = CGRectMake(self.edgeSpacing,
+                                            self.frame.size.height,
+                                            self.frame.size.width - (self.edgeSpacing * 2.f),
+                                            self.allMenuActions.count * (_buttonHeight + _buttonGapSpace) + _cancelButtonGapSpace + ([self _titleLabelHeight] + _buttonGapSpace));
+    
+    _buttonContainerView.backgroundColor = [UIColor clearColor];
+    
+    _tapGestureView.frame = CGRectMake(0.f, 0.f, self.frame.size.width, self.frame.size.height - _buttonContainerView.frame.size.height);
+    
+    [self _addButtons];
 }
 
 - (void)_handleTapGesture:(id)sender {
@@ -381,8 +385,9 @@
         menuButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         menuButton.exclusiveTouch = YES;
         menuButton.tag = index;
+        menuButton.standbyTextColor = [menuAction isEqual:self.destructiveMenuAction] ? self.destructiveButtonTextColor : self.buttonTextColor;
+        menuButton.highlightTextColor = self.buttonHighlightedTextColor;
         
-        [menuButton setTitleColor:[menuAction isEqual:self.destructiveMenuAction] ? self.destructiveButtonTextColor : self.buttonTextColor forState:UIControlStateNormal];
         [menuButton setTitle:menuAction.title forState:UIControlStateNormal];
         
         __weak DWNavMenu *weakSelf = self;
@@ -405,16 +410,9 @@
     }
     
     if (self.titleText) {
-        self.titleLabel = [[DWInternalLabel alloc] init];
-        self.titleLabel.text = self.titleText;
-        self.titleLabel.numberOfLines = 0;
-        self.titleLabel.backgroundColor = self.buttonBackgroundColor;
-        self.titleLabel.font = self.titleTextFont;
-        self.titleLabel.textColor = self.titleTextColor;
-        self.titleLabel.textAlignment = NSTextAlignmentCenter;
-        self.titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.titleLabel.tag = index;
+        [self _createTitleLabelView];
         
+        self.titleLabel.tag = index;
         float labelHeight = [self _titleLabelHeight];
         
         self.titleLabel.frame = CGRectMake(0.f,
@@ -430,23 +428,59 @@
     self.needsButtonUpdate = NO;
 }
 
+- (void)_createTitleLabelView {
+    if (self.titleLabel == nil) {
+        self.titleLabel = [[DWInternalLabel alloc] init];
+    }
+    
+    self.titleLabel.text = self.titleText;
+    self.titleLabel.numberOfLines = 0;
+    self.titleLabel.backgroundColor = self.buttonBackgroundColor;
+    self.titleLabel.font = self.titleTextFont;
+    self.titleLabel.textColor = self.titleTextColor;
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    
+    if (self.topCornerRadius > 0) {
+        CAShapeLayer *mask = [CAShapeLayer layer];
+        UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRoundedRect:self.buttonContainerView.bounds
+                                                         byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
+                                                               cornerRadii:CGSizeMake(_topCornerRadius, _topCornerRadius)];
+        
+        mask.frame = self.buttonContainerView.bounds;
+        mask.path = bezierPath.CGPath;
+        
+        self.buttonContainerView.layer.mask = mask;
+    }
+}
+
 - (void)_adoptStyleFromParentIfNeeded {
     if (self.navigationHandler) {
         DWNavMenu *parentMenu = [self.navigationHandler parentMenu];
         
         self.titleTextColor = parentMenu.titleTextColor;
+        self.titleTextFont = parentMenu.titleTextFont;
+        self.topCornerRadius = parentMenu.topCornerRadius;
         self.cancelButtonGapSpace = parentMenu.cancelButtonGapSpace;
         self.buttonHeight = parentMenu.buttonHeight;
         self.buttonGapSpace = parentMenu.buttonGapSpace;
         self.buttonBackgroundColor = parentMenu.buttonBackgroundColor;
         self.buttonTextColor = parentMenu.buttonTextColor;
+        self.buttonHighlightedTextColor = parentMenu.buttonHighlightedTextColor;
         self.destructiveButtonColor = parentMenu.destructiveButtonColor;
         self.destructiveButtonTextColor = parentMenu.destructiveButtonTextColor;
         self.buttonTextFont = parentMenu.buttonTextFont;
         self.backgroundTapToDismissEnabled = parentMenu.backgroundTapToDismissEnabled;
         self.edgeSpacing = parentMenu.edgeSpacing;
         self.backgroundOverlayColor = parentMenu.backgroundOverlayColor;
+        self.animationDuration = parentMenu.animationDuration;
     }
+}
+
+- (void)setTopCornerRadius:(float)topCornerRadius {
+    _topCornerRadius = topCornerRadius;
+    
+    [self _createTitleLabelView];
 }
 
 #pragma mark - Initializer Methods
@@ -520,6 +554,7 @@
     self.buttonHeight = 60.f;
     self.buttonBackgroundColor = [UIColor whiteColor];
     self.buttonTextColor = [UIColor blackColor];
+    self.buttonHighlightedTextColor = [UIColor blackColor];
     self.destructiveButtonColor = [UIColor colorWithRed:244.f/255.f green:14.f/255.f blue:50.f/255.f alpha:1.f];
     self.destructiveButtonTextColor = [UIColor whiteColor];
     self.buttonTextFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:16.f];

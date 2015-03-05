@@ -38,9 +38,11 @@
     if (_animatedHighlighting) {
         [self _animateWithBlock:^{
             self.foregroundView.alpha = alphaValue;
+            [self setTitleColor:highlighted ? _highlightTextColor : _standbyTextColor forState:UIControlStateNormal];
         }];
     } else {
         self.foregroundView.alpha = alphaValue;
+        [self setTitleColor:highlighted ? _highlightTextColor : _standbyTextColor forState:UIControlStateNormal];
     }
 }
 
@@ -85,6 +87,12 @@
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor {
     self.foregroundView.backgroundColor = backgroundColor;
+}
+
+- (void)setStandbyTextColor:(UIColor *)standbyTextColor {
+    _standbyTextColor = standbyTextColor;
+    
+    [self setTitleColor:standbyTextColor forState:UIControlStateNormal];
 }
 
 - (void)setFrame:(CGRect)frame {

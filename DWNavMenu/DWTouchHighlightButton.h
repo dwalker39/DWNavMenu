@@ -21,12 +21,18 @@ typedef void(^ TapHandlerBlock)(DWTouchHighlightButton *);
 @property (nonatomic) BOOL animatedHighlighting;
 
 // The duration of the highlight animation
-@property (nonatomic) float animationDuration;
+@property (nonatomic, assign) float animationDuration;
 
-// The default alpha of the butten when not highlighted
-@property (nonatomic) float standbyAlpha;
+// The alpha of the butten when not highlighted
+@property (nonatomic, assign) float standbyAlpha;
 
-// The highlighted alpha of the button when highlighted
-@property (nonatomic) float highlightAlpha;
+// The alpha of the button when highlighted
+@property (nonatomic, assign) float highlightAlpha;
+
+// The text color when button is not highlighted
+@property (nonatomic, copy) UIColor *standbyTextColor;
+
+// The text color when button is highlighted
+@property (nonatomic, copy) UIColor *highlightTextColor;
 
 @end
