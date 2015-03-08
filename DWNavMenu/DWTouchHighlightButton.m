@@ -66,6 +66,8 @@
     if (CGRectContainsPoint(self.bounds, [touch locationInView:self])) {
         if (self.tapHandler) {
             self.tapHandler(self);
+        } else {
+            [self sendActionsForControlEvents:UIControlEventTouchUpInside];
         }
     }
 }
@@ -118,11 +120,14 @@
     [self addSubview:self.backgroundView];
     [self addSubview:self.foregroundView];
     
+    // Defaults
     self.clipsToBounds = YES;
     self.animatedHighlighting = YES;
     self.animationDuration = kDefaultAnimationDuration;
     self.standbyAlpha = 1.f;
     self.highlightAlpha = 0.8f;
+    self.standbyTextColor = [UIColor whiteColor];
+    self.highlightTextColor = [UIColor whiteColor];
 }
 
 - (instancetype)init {

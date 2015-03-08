@@ -238,6 +238,8 @@
     backButton.exclusiveTouch = YES;
     backButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
     backButton.tag = -1;
+    backButton.standbyTextColor = self.buttonTextColor;
+    backButton.highlightTextColor = self.buttonHighlightedTextColor;
     
     [backButton setTitleColor:self.buttonTextColor forState:UIControlStateNormal];
     [backButton setTitle:self.backButtonText forState:UIControlStateNormal];
@@ -386,7 +388,7 @@
         menuButton.exclusiveTouch = YES;
         menuButton.tag = index;
         menuButton.standbyTextColor = [menuAction isEqual:self.destructiveMenuAction] ? self.destructiveButtonTextColor : self.buttonTextColor;
-        menuButton.highlightTextColor = self.buttonHighlightedTextColor;
+        menuButton.highlightTextColor = [menuAction isEqual:self.destructiveMenuAction] ? self.destructiveButtonTextColor : self.self.buttonHighlightedTextColor;
         
         [menuButton setTitle:menuAction.title forState:UIControlStateNormal];
         
