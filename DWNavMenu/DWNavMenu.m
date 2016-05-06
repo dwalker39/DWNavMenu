@@ -109,7 +109,7 @@
     navMenu.navigationHandler = self.navigationHandler;
     navMenu.needsButtonUpdate = YES;
     
-    [navMenu _adoptStyleFromParentIfNeeded];
+    [navMenu _adoptStyleFromParent];
     [navMenu _prepareMenuButtons];
     [navMenu _addBackButton];
     
@@ -456,7 +456,7 @@
     }
 }
 
-- (void)_adoptStyleFromParentIfNeeded {
+- (void)_adoptStyleFromParent {
     if (self.navigationHandler) {
         DWNavMenu *parentMenu = [self.navigationHandler parentMenu];
         

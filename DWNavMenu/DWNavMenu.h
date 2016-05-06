@@ -13,6 +13,10 @@
 
 @interface DWNavMenu : UIView
 
+// -------------------------
+// API
+// -------------------------
+
 // The text of the menu title, if not set then no title will be present
 @property (nonatomic, copy) NSString *titleText;
 
@@ -34,7 +38,7 @@
 // The NavMenuAction for the destructive button, this specifies the title of the destructive button and the action to perform when tapped
 @property (nonatomic, strong) DWNavMenuAction *destructiveMenuAction;
 
-// This specifies the gap space between the menu buttons at the cancel button
+// This specifies the gap space between the menu buttons and the cancel button
 @property (nonatomic, assign) float cancelButtonGapSpace;
 
 // This specifies the height of all buttons in the menu, including cancel and destructive buttons
@@ -102,7 +106,7 @@
 - (void)addMenuAction:(DWNavMenuAction *)menuAction atIndex:(NSUInteger)index;
 
 // -------------------------
-// Initializers
+// Constructors
 // -------------------------
 
 // Note: The 'buttons' argument must be nil terminated, example: buttonAction, button2Action, nil
@@ -112,5 +116,7 @@
                          buttons:(DWNavMenuAction *)button, ...;
 
 - (instancetype)initWithMenuActions:(NSArray *)menuActions;
+
+// --------------------------------------------------
 
 @end
