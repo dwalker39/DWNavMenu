@@ -35,14 +35,15 @@
     if (self.foregroundView.alpha == alphaValue)
         return;
     
+    UIColor *targetColor = highlighted ? _highlightTextColor : _standbyTextColor;
     if (_animatedHighlighting) {
         [self _animateWithBlock:^{
             self.foregroundView.alpha = alphaValue;
-            [self setTitleColor:highlighted ? _highlightTextColor : _standbyTextColor forState:UIControlStateNormal];
+            [self setTitleColor:targetColor forState:UIControlStateNormal];
         }];
     } else {
         self.foregroundView.alpha = alphaValue;
-        [self setTitleColor:highlighted ? _highlightTextColor : _standbyTextColor forState:UIControlStateNormal];
+        [self setTitleColor:targetColor forState:UIControlStateNormal];
     }
 }
 

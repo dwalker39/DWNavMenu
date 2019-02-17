@@ -115,8 +115,13 @@
     
     [self.navigationHandler appendMenu:navMenu];
     
+    UIEdgeInsets safeAreaInsets = UIEdgeInsetsZero;
+    if (@available(iOS 11.0, *)) {
+        safeAreaInsets = [self safeAreaInsets];
+    }
+    
     CGRect frame = navMenu.buttonContainerView.frame;
-    frame.origin.y = navMenu.frame.size.height - frame.size.height;
+    frame.origin.y = navMenu.frame.size.height - frame.size.height - safeAreaInsets.bottom;
     navMenu.buttonContainerView.frame = frame;
     
     [self addSubview:navMenu];
@@ -185,13 +190,14 @@
                         parentMenu.backgroundColor = [UIColor clearColor];
                         self.backgroundColor = [UIColor clearColor];
                         
-                        _buttonContainerView.frame = CGRectMake(_buttonContainerView.frame.origin.x,
-                                                                self.frame.size.height,
-                                                                _buttonContainerView.frame.size.width,
-                                                                _buttonContainerView.frame.size.height);
+                        CGRect buttonContainerViewFrame = self.buttonContainerView.frame;
+                        self.buttonContainerView.frame = CGRectMake(buttonContainerViewFrame.origin.x,
+                                                                          self.frame.size.height,
+                                                                          buttonContainerViewFrame.size.width,
+                                                                          buttonContainerViewFrame.size.height);
                     }
                    completion:^{
-                       _buttonContainerView.userInteractionEnabled = YES;
+                       self.buttonContainerView.userInteractionEnabled = YES;
                        
                        for (DWNavMenu *menu in self.navigationHandler.menuNavigationStack) {
                            menu.buttonContainerView.alpha = 1.f;
@@ -213,9 +219,9 @@
 - (void)_prepareMenuButtons {
     [self _updateMenuActionsArray];
     
-    _buttonContainerView.frame = CGRectMake(self.edgeSpacing,
+    _buttonContainerView.frame = CGRectMake(self.horizontalLayoutInsets.left,
                                             self.frame.size.height,
-                                            self.frame.size.width - (self.edgeSpacing * 2.f),
+                                            self.frame.size.width - self.horizontalLayoutInsets.left - self.horizontalLayoutInsets.right,
                                             self.allMenuActions.count * (_buttonHeight + _buttonGapSpace) + _cancelButtonGapSpace + ([self _titleLabelHeight] + _buttonGapSpace));
     
     _buttonContainerView.backgroundColor = [UIColor clearColor];
@@ -269,7 +275,7 @@
         return 0.f;
     }
     
-    CGRect frame = [self.titleText boundingRectWithSize:CGSizeMake(self.frame.size.width - (self.edgeSpacing * 2.f) - 10.f, INFINITY)
+    CGRect frame = [self.titleText boundingRectWithSize:CGSizeMake(self.frame.size.width - self.horizontalLayoutInsets.left - self.horizontalLayoutInsets.right - 10.f, INFINITY)
                                                 options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
                                              attributes:@{NSFontAttributeName : self.titleTextFont}
                                                 context:nil];
@@ -312,13 +318,21 @@
                 withBlock:^{
                     self.backgroundColor = shown ? self.backgroundOverlayColor : [UIColor clearColor];
                     
-                    _buttonContainerView.frame = CGRectMake(_buttonContainerView.frame.origin.x,
-                                                            shown ? self.frame.size.height - _buttonContainerView.frame.size.height : self.frame.size.height,
-                                                            _buttonContainerView.frame.size.width,
-                                                            _buttonContainerView.frame.size.height);
+                    UIEdgeInsets safeAreaInsets = UIEdgeInsetsZero;
+                    if (@available(iOS 11.0, *)) {
+                        safeAreaInsets = [self safeAreaInsets];
+                    }
+                    
+                    CGRect buttonContainerViewFrame = self.buttonContainerView.frame;
+                    CGFloat height = self.frame.size.height;
+                    CGFloat targetY = shown ? height - buttonContainerViewFrame.size.height - safeAreaInsets.bottom : height;
+                    self.buttonContainerView.frame = CGRectMake(buttonContainerViewFrame.origin.x,
+                                                                targetY,
+                                                                buttonContainerViewFrame.size.width,
+                                                                buttonContainerViewFrame.size.height);
                 }
                completion:^{
-                   _buttonContainerView.userInteractionEnabled = YES;
+                   self.buttonContainerView.userInteractionEnabled = YES;
                    
                    if (!shown) {
                        [self removeFromSuperview];
@@ -369,7 +383,7 @@
         [allActions addObject:self.destructiveMenuAction];
     }
     
-    self.allMenuActions = allActions.copy;
+    self.allMenuActions = [allActions copy];
     self.needsButtonUpdate = YES;
 }
 
@@ -473,7 +487,7 @@
         self.destructiveButtonTextColor = parentMenu.destructiveButtonTextColor;
         self.buttonTextFont = parentMenu.buttonTextFont;
         self.backgroundTapToDismissEnabled = parentMenu.backgroundTapToDismissEnabled;
-        self.edgeSpacing = parentMenu.edgeSpacing;
+        self.horizontalLayoutInsets = parentMenu.horizontalLayoutInsets;
         self.backgroundOverlayColor = parentMenu.backgroundOverlayColor;
         self.animationDuration = parentMenu.animationDuration;
     }
@@ -561,7 +575,7 @@
     self.destructiveButtonTextColor = [UIColor whiteColor];
     self.buttonTextFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:16.f];
     self.backgroundTapToDismissEnabled = YES;
-    self.edgeSpacing = 8.f;
+    self.horizontalLayoutInsets = UIEdgeInsetsMake(0.0, 8.f, 0.0, 8.f);
     self.backgroundOverlayColor = [UIColor colorWithWhite:0.f alpha:0.45f];
     self.animationDuration = kDefaultAnimationDuration;
     self.needsButtonUpdate = YES;

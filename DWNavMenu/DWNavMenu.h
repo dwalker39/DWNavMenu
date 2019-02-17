@@ -69,7 +69,7 @@
 @property (nonatomic, assign) BOOL backgroundTapToDismissEnabled;
 
 // This specifies the edge gap space between the menu and the sides of the screen
-@property (nonatomic, assign) float edgeSpacing;
+@property (nonatomic, assign) UIEdgeInsets horizontalLayoutInsets;
 
 // This specifies the background overlay color behind the menu
 @property (nonatomic, copy) UIColor *backgroundOverlayColor;

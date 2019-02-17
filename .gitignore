@@ -1,0 +1,13 @@
+.DS_Store
+build/
+Products/
+Pods/
+*.pbxuser
+*.perspective
+*.perspectivev3
+*.mode1v3
+*.mode2v3
+*/xcuserdata/
+*/xcshareddata/
+.xcodeproj/ !*.xcodeproj/project.pbxproj
+DWNavMenuDemo.xcodeproj/xcuserdata/*
