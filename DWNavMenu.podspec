@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "DWNavMenu"
-  s.version      = "1.0.5"
+  s.version      = "1.0.6"
   s.summary      = "A highly customizable UIActionSheet style menu with simple navigation and block handling"
 
   s.description  = <<-DESC
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.license      = "Apache License"
   s.author       = { "Derrick Walker" => "derrick@mtsr-app.com" }
   s.platform     = :ios, "9.3"
-  s.source       = { :git => "https://github.com/dwalker39/DWNavMenu.git", :tag => "v1.0.4" }
+  s.source       = { :git => "https://github.com/dwalker39/DWNavMenu.git", :tag => "v1.0.6" }
   s.source_files  = "DWNavMenu/*.{h,m}"
   s.public_header_files = "DWNavMenu/*.h"
   s.requires_arc = true
